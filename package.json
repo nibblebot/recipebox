@@ -1,5 +1,5 @@
 {
-  "name": "recipebox2",
+  "name": "recipebox",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,8 +16,11 @@
   "devDependencies": {
     "@types/jest": "^23.3.5",
     "@types/node": "^10.11.7",
+    "@types/ramda": "^0.25.39",
     "@types/react": "^16.4.16",
     "@types/react-dom": "^16.0.9",
+    "@types/react-router-dom": "^4.3.1",
+    "tslint": "^5.11.0",
     "typescript": "^3.1.2"
   }
 }

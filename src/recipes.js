@@ -16,8 +16,6 @@ const recipes: { [key: string]: Recipe } = {
     name: "Oat Waffles"
   },
   "3": {
-    name: "Tofu Drunken Noodles",
-    thumbnail: "/tofu-drunken-noodles.jpg",
     ingredients: [
       "8 to 10 ounces dried Chinese-style wheat noodles",
       "2 kaffir lime leaves (sliced very thinly, or cut into thin strips with scissors (remove stem))",
@@ -37,7 +35,9 @@ const recipes: { [key: string]: Recipe } = {
       "1 tablespoon fish sauce OR 1 1/2 tablespoons soy sauce",
       "1 1/2 tablespoons lime juice",
       "1 tablespoon brown sugar "
-    ]
+    ],
+    name: "Tofu Drunken Noodles",
+    thumbnail: "/tofu-drunken-noodles.jpg",
   },
   "4": {
     name: "Korean Braised Tofu"
