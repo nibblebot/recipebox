@@ -1,8 +1,9 @@
+import "./App.css";
+
 import * as R from "ramda";
 import * as React from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
-import "./App.css";
 import { Recipe, recipes } from "./recipes";
 
 const App = () => (
@@ -20,9 +21,9 @@ const App = () => (
 interface RecipeItemProps {
   match: {
     params: {
-      id: string
-    }
-  }
+      id: string;
+    };
+  };
 }
 
 const RecipeItem = (props: RecipeItemProps) => {
