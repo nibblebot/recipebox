@@ -1,10 +1,9 @@
-// @flow
-import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { ramda as R } from "ramda";
+import * as R from "ramda";
+import * as React from "react";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
 import "./App.css";
-import recipes, { Recipe } from "./recipes";
+import { Recipe, recipes } from "./recipes";
 
 const App = () => (
   <Router>
@@ -12,20 +11,22 @@ const App = () => (
       <header className="App-header">
         <Link to="/">Recipes</Link>
       </header>
-      <Route exact path="/" component={RecipesList} />
+      <Route exact={true} path="/" component={RecipesList} />
       <Route path="/recipe/:id" component={RecipeItem} />
     </div>
   </Router>
 );
 
-const RecipeItem = ({
-  match
-}: {
+interface RecipeItemProps {
   match: {
-    params: Object
+    params: {
+      id: string
+    }
   }
-}) => {
-  const recipe: Recipe = recipes[match.params.id];
+}
+
+const RecipeItem = (props: RecipeItemProps) => {
+  const recipe: Recipe = recipes[props.match.params.id];
   const thumbnail = recipe.thumbnail || "placeholder.png";
   return (
     <div className="RecipeItem">
@@ -41,12 +42,13 @@ const RecipeItem = ({
   );
 };
 
-const RecipesList = (): React$Element<any> => {
-  const recipeItems = R.mapObjIndexed((recipe, id) => {
+const RecipesList = () => {
+  const indexedMap = R.addIndex<Recipe>(R.map);
+  const recipeItems = indexedMap((recipe, idx) => {
     const thumbnail = recipe.thumbnail || "placeholder.png";
     return (
-      <li key={id}>
-        <Link to={`/recipe/${id}`}>
+      <li key={idx}>
+        <Link to={`/recipe/${idx}`}>
           <img alt="recipe" src={thumbnail} width={200} height={200} />
           <div className="recipe-name">{recipe.name}</div>
         </Link>

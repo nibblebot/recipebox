@@ -1,21 +1,20 @@
-//@flow
 export interface Recipe {
   name: string;
   thumbnail?: string;
   ingredients?: string[];
 }
 
-const recipes: { [key: string]: Recipe } = {
-  "0": {
+const recipes: Recipe[] = [
+  {
     name: "Vegan Cheese"
   },
-  "1": {
+  {
     name: "Tofu Green Curry"
   },
-  "2": {
+  {
     name: "Oat Waffles"
   },
-  "3": {
+  {
     ingredients: [
       "8 to 10 ounces dried Chinese-style wheat noodles",
       "2 kaffir lime leaves (sliced very thinly, or cut into thin strips with scissors (remove stem))",
@@ -39,14 +38,16 @@ const recipes: { [key: string]: Recipe } = {
     name: "Tofu Drunken Noodles",
     thumbnail: "/tofu-drunken-noodles.jpg",
   },
-  "4": {
+  {
     name: "Korean Braised Tofu"
   },
-  "5": {
+  {
     name: "Almond Cookies"
   },
-  "6": {
-    name: "Soy Protein Pankcakes"
+  {
+    name: "Soy Protein Pancakes"
   }
+];
+export {
+  recipes
 };
-export default recipes;
