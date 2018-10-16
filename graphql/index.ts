@@ -1,10 +1,10 @@
-const fs = require("fs");
-const https = require("https");
-const http = require("http");
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const typeDefs = require("./typeDefs");
-const resolvers = require("./resolvers");
+import { ApolloServer } from "apollo-server-express";
+import * as express from "express";
+import * as fs from "fs";
+import * as http from "http";
+import * as https from "https";
+import resolvers from "./resolvers";
+import typeDefs from "./typeDefs";
 
 const configurations = {
   development: { ssl: false, port: 4000, hostname: "localhost" },
@@ -37,11 +37,11 @@ if (config.ssl) {
 }
 
 // Add subscription support
-apollo.installSubscriptionHandlers(server);
+apollo.installSubscriptionHandlers(server as http.Server);
 
 server.listen({ port: config.port }, () =>
   console.log(
-    "🚀 Server ready at",
+    "🚀 Server ready @",
     `http${config.ssl ? "s" : ""}://${config.hostname}:${config.port}${
       apollo.graphqlPath
     }`

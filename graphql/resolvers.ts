@@ -25,11 +25,11 @@ const recipes = [
       "1 tablespoon brown sugar "
     ],
     name: "Tofu Drunken Noodles",
-    thumbnail: "/tofu-drunken-noodles.jpg",
+    thumbnail: "/tofu-drunken-noodles.jpg"
   }
 ];
 
-module.exports = {
+export default {
   Query: {
     recipes: () => recipes
   }
