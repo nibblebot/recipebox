@@ -3,8 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "apollo-server-express": "^2.1.0",
+    "ramda": "^0.25.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-router-dom": "^4.3.1",
+    "whatwg-fetch": "2.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.5",
+    "@types/node": "^10.11.7",
+    "@types/ramda": "^0.25.39",
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-router-dom": "^4.3.1",
     "autoprefixer": "7.1.6",
+    "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
     "babel-loader": "7.1.2",
     "babel-preset-react-app": "^3.1.2",
@@ -14,12 +27,10 @@
     "css-loader": "0.28.7",
     "dotenv": "4.0.0",
     "dotenv-expand": "4.2.0",
-    "express": "^4.16.4",
     "extract-text-webpack-plugin": "3.0.2",
     "file-loader": "1.1.5",
     "fork-ts-checker-webpack-plugin": "^0.2.8",
     "fs-extra": "3.0.1",
-    "graphql": "^14.0.2",
     "html-webpack-plugin": "2.29.0",
     "jest": "^23.6.0",
     "object-assign": "4.1.1",
@@ -28,9 +39,7 @@
     "prettier": "^1.14.3",
     "promise": "8.0.1",
     "raf": "3.4.0",
-    "react": "^16.5.2",
     "react-dev-utils": "^5.0.3",
-    "react-dom": "^16.5.2",
     "resolve": "1.6.0",
     "source-map-loader": "^0.2.1",
     "style-loader": "0.19.0",
@@ -46,23 +55,12 @@
     "url-loader": "0.6.2",
     "webpack": "3.8.1",
     "webpack-dev-server": "2.11.3",
-    "webpack-manifest-plugin": "1.3.2",
-    "whatwg-fetch": "2.0.3"
+    "webpack-manifest-plugin": "1.3.2"
   },
   "scripts": {
-    "graphql": "concurrently \"parcel watch graphql/index.ts --target node\" \"NODE_ENV=development nodemon graphql/dist/index.js\"",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
-  },
-  "devDependencies": {
-    "@types/jest": "^23.3.5",
-    "@types/node": "^10.11.7",
-    "@types/ramda": "^0.25.39",
-    "@types/react": "^16.4.16",
-    "@types/react-dom": "^16.0.9",
-    "@types/react-router-dom": "^4.3.1",
-    "babel-core": "^6.26.3"
   },
   "jest": {
     "collectCoverageFrom": [
