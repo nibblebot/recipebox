@@ -1,13 +1,20 @@
 import { gql } from "apollo-server-express"
 
 export default gql`
-  type Recipe {
+  type RecipePreview {
+    id: ID!
+    name: String!
     image: String
-    name: String
+  }
+  type Recipe {
+    id: ID!
+    name: String!
+    image: String
     ingredients: [String]
   }
 
   type Query {
-    recipes: [Recipe]
+    recipe(id: ID!): Recipe
+    recipes: [RecipePreview]
   }
 `

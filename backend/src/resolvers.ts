@@ -1,9 +1,16 @@
 import mongoose from "mongoose"
-import Promise from "promise"
 import { Recipe } from "./models/Recipe"
 
 export default {
   Query: {
-    recipes: () => Recipe.find().exec()
+    recipe: (_: any, args: { id: mongoose.Types.ObjectId }) =>
+      Recipe.findById(args.id).exec(),
+    recipes: () => {
+      const results = Recipe.find()
+        .select("name image")
+        .exec()
+      console.log(results)
+      return results
+    }
   }
 }
