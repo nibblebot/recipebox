@@ -14,10 +14,14 @@ const App = () => (
     <Router>
       <div className="App">
         <header className="App-header">
-          <Link to="/">Recipes</Link>
+          <Link className="App-title" to="/">
+            RecipeBox
+          </Link>
         </header>
-        <Route exact={true} path="/" component={RecipeList} />
-        <Route path="/recipe/:id" component={RecipeItem} />
+        <div className="App-content">
+          <Route exact={true} path="/" component={RecipeList} />
+          <Route path="/recipe/:id" component={RecipeItem} />
+        </div>
       </div>
     </Router>
   </ApolloProvider>
@@ -58,12 +62,14 @@ const RecipeItem = (props: RecipeItemProps) => (
         <div className="RecipeItem">
           <h2>{recipe.name}</h2>
           <img alt="recipe" src={image} width={200} height={200} />
-          <ul>
+          <div className="ingredients">
             {recipe.ingredients &&
               recipe.ingredients.map((ingredient: string, id: number) => (
-                <li key={id}>{ingredient}</li>
+                <div className="ingredient" key={id}>
+                  {ingredient}
+                </div>
               ))}
-          </ul>
+          </div>
         </div>
       )
     }}
@@ -92,20 +98,16 @@ const RecipeList = () => (
       const recipeItems = data.recipes.map((recipe: any, idx: number) => {
         const image = recipe.image || "placeholder.png"
         return (
-          <li key={idx}>
+          <div className="RecipePreview" key={idx}>
             <Link to={`/recipe/${recipe.id}`}>
               <img alt="recipe" src={image} width={200} height={200} />
               <div className="recipe-name">{recipe.name}</div>
             </Link>
-          </li>
+          </div>
         )
       })
 
-      return (
-        <section className="RecipesList">
-          <ul>{recipeItems}</ul>
-        </section>
-      )
+      return <section className="RecipeList">{recipeItems}</section>
     }}
   </Query>
 )
