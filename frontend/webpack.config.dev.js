@@ -7,6 +7,10 @@ const InterpolateHtmlPlugin = require("react-dev-utils/InterpolateHtmlPlugin")
 // const WatchMissingNodeModulesPlugin = require("react-dev-utils/WatchMissingNodeModulesPlugin")
 // const ModuleScopePlugin = require("react-dev-utils/ModuleScopePlugin")
 // const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin-alt")
+const typescriptFormatter = require("./typescriptFormatter")
+const fs = require("fs")
+const resolve = require("resolve")
 
 const { env, paths } = require("./webpack.common")
 
@@ -150,9 +154,22 @@ module.exports = {
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, env),
     // Generates an `index.html` file with the <script> injected.
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
     // new CaseSensitivePathsPlugin(),
     // new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    // TypeScript type checking
+    fs.existsSync(paths.appTsConfig) &&
+      new ForkTsCheckerWebpackPlugin({
+        typescript: resolve.sync("typescript", {
+          basedir: paths.appNodeModules
+        }),
+        async: false,
+        checkSyntacticErrors: true,
+        tsconfig: paths.appTsConfig,
+        watch: paths.appSrc,
+        silent: true,
+        formatter: typescriptFormatter
+      })
   ],
   performance: {
     hints: false
