@@ -13,6 +13,7 @@ const chalk = require("chalk")
 const fs = require("fs")
 
 function formatter(message, useColors) {
+  // @ts-ignore
   const colors = new chalk.constructor({ enabled: useColors })
   const messageColor = message.isWarningSeverity() ? colors.yellow : colors.red
 
