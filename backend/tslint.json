@@ -5,9 +5,11 @@
   },
   "rules": {
     "interface-name": [true, "never-prefix"],
+    "object-literal-sort-keys": false,
     "no-console": false
   },
   "jsRules": {
+    "object-literal-sort-keys": false,
     "no-console": false
   }
 }
