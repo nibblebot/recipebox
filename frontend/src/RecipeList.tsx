@@ -9,7 +9,7 @@ const RecipeList = () => (
       {
         recipes {
           id
-          name
+          title
           image
         }
       }
@@ -25,12 +25,10 @@ const RecipeList = () => (
       const recipeItems = data.recipes.map((recipe: any, idx: number) => {
         const image = recipe.image || "placeholder.png"
         return (
-          <div className="RecipePreview" key={idx}>
-            <Link to={`/recipe/${recipe.id}`}>
-              <img alt="recipe" src={image} width={200} height={200} />
-              <div className="recipe-name">{recipe.name}</div>
-            </Link>
-          </div>
+          <Link to={`/recipe/${recipe.id}`} className="RecipePreview" key={idx}>
+            <img alt="recipe" src={image} width={200} height={200} />
+            <div className="recipe-title">{recipe.title}</div>
+          </Link>
         )
       })
 
