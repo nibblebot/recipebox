@@ -1,15 +1,11 @@
 
-Backend:
-  Mongo:
-    ✔ update schema to include split ingredients @started(18-11-07 13:04) @done(18-11-07 18:34) @lasted(5h30m37s)
-  Apollo:
-    ✔ update apollo query split ingredients @done(18-11-07 18:34)
-    ☐ recipesByIngredient
-Frontend:
-  ☐ update RecipeItem for split ingredients
-  ✔ update RecipeList for split ingredients @done(18-11-07 18:34)
-  ☐ click ingredient name to search for recipes by ingredient
 Archive:
+  ✔ update schema to include split ingredients @started(18-11-07 13:04) @done(18-11-07 18:34) @lasted(5h30m37s) @project(Backend.Mongo)
+  ✔ update apollo query split ingredients @done(18-11-07 18:34) @project(Backend.Apollo)
+  ✔ recipesByIngredient @done(18-11-07 20:29) @project(Backend.Apollo)
+  ✔ update RecipeItem for split ingredients @done(18-11-07 20:29) @project(Frontend)
+  ✔ update RecipeList for split ingredients @done(18-11-07 18:34) @project(Frontend)
+  ✔ click ingredient name to search for recipes by ingredient @done(18-11-07 20:29) @project(Frontend)
   ✔ add FS check after URL scraped @done(18-11-07 12:44) @project(Backend.Scripts)
   ✔ throw errors on missing $evals @done(18-11-07 12:44) @project(Backend.Scripts)
   ✔ skip recipe if existing .json @done(18-11-07 12:44) @project(Backend.Scripts)
