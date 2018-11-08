@@ -21,7 +21,12 @@ mongoose.connect(
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "connection error:"))
 
-const startApollo = () => {
+db.once("open", () => {
+  console.log("🚀 MongoDB connection ready @", mongoURI)
+  startApollo()
+})
+
+function startApollo() {
   const apollo = new ApolloServer({ typeDefs, resolvers })
 
   const app = express()
@@ -40,8 +45,3 @@ const startApollo = () => {
     )
   })
 }
-
-db.once("open", () => {
-  console.log("🚀 MongoDB connection ready @", mongoURI)
-  startApollo()
-})

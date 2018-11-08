@@ -5,12 +5,9 @@ export default {
   Query: {
     recipe: (_: any, args: { id: mongoose.Types.ObjectId }) =>
       Recipe.findById(args.id).exec(),
-    recipes: () => {
-      const results = Recipe.find()
-        .select("name image")
+    recipes: () =>
+      Recipe.find()
+        .select("title image")
         .exec()
-      console.log(results)
-      return results
-    }
   }
 }
