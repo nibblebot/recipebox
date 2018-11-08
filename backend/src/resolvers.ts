@@ -8,6 +8,8 @@ export default {
     recipes: () =>
       Recipe.find()
         .select("title image")
-        .exec()
+        .exec(),
+    recipesByIngredient: (_: any, args: { ingredient: string }) =>
+      Recipe.find({ "ingredients.ingredient": args.ingredient })
   }
 }
