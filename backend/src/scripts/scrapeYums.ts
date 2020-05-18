@@ -14,7 +14,7 @@ const recipeDataDir = "/data/recipes/"
   try {
     const browser = await puppeteer.launch({
       headless: false,
-      defaultViewport: { width: 1920, height: 1080 }
+      defaultViewport: { width: 1920, height: 1080 },
     })
     const allYumsUrl =
       "https://www.yummly.com/profile/Joshua24/collections/all-yums"
@@ -43,7 +43,7 @@ async function scrapeAllYums(
   const pages = await browser.pages()
   const page = pages[0]
 
-  page.on("console", msg => {
+  page.on("console", (msg) => {
     for (let i = 0; i < msg.args().length; ++i) {
       console.log(`${i}: ${msg.args()[i]}`)
     }
@@ -51,16 +51,16 @@ async function scrapeAllYums(
   await page.goto(url, { waitUntil: "networkidle2" })
   console.log(`Loaded: ${url}`)
 
-  await page.click(".collection-banner")
+  // await page.click(".collection-banner")
   await page.keyboard.press("End")
   await page.waitFor(2000)
   await page.keyboard.press("End")
   await page.waitFor(2000)
 
   const yumUrls = await page.$$eval(
-    ".RecipeContainer .link-overlay",
+    ".collection-recipe-card-grid .link-overlay",
     (links: Element[]) => {
-      return links.map(link => link.getAttribute("href"))
+      return links.map((link) => link.getAttribute("href"))
     }
   )
   console.log(`Found ${yumUrls.length} yums...`)
@@ -98,7 +98,7 @@ async function scrapeRecipe(browser: puppeteer.Browser, slug: string) {
   console.log(`\nScraping ${slug}`)
   const page = await browser.newPage()
   await page.goto(`http://yummly.com${slug}`, {
-    waitUntil: "networkidle2"
+    waitUntil: "networkidle2",
   })
   console.log(`Loaded ${slug}`)
 
@@ -126,7 +126,7 @@ async function scrapeRecipe(browser: puppeteer.Browser, slug: string) {
     title,
     image,
     slug,
-    originalUrl
+    originalUrl,
   }
   return recipeData
 }
@@ -136,15 +136,15 @@ async function getTitle(page: puppeteer.Page) {
   await page.waitForSelector(titleSelector)
   return page.$eval(
     titleSelector,
-    el => el.textContent && el.textContent.trim()
+    (el) => el.textContent && el.textContent.trim()
   )
 }
 
 async function getIngredients(page: puppeteer.Page) {
   const ingredientSelector = ".recipe .IngredientLine"
   await page.waitForSelector(ingredientSelector)
-  return await page.$$eval(ingredientSelector, nodes =>
-    nodes.map(node => {
+  return await page.$$eval(ingredientSelector, (nodes) =>
+    nodes.map((node) => {
       const amount = node.querySelector(".amount")
       const unit = node.querySelector(".unit")
       const ingredient = node.querySelector(".ingredient")
@@ -171,30 +171,32 @@ async function getIngredients(page: puppeteer.Page) {
 async function getRecipeUrl(page: puppeteer.Page) {
   let originalUrl
 
-  const readDirectionsSelector = ".recipe .recipe-show-full-directions"
+  const readDirectionsSelector = ".recipe .recipe-show-full"
   await page.waitForSelector(readDirectionsSelector)
-  const readDirectionsHref = await page.$eval(readDirectionsSelector, el =>
+  const fullRecipeHref = await page.$eval(readDirectionsSelector, (el) =>
     el.getAttribute("href")
   )
 
-  // iframed original recipe
-  if (readDirectionsHref && readDirectionsHref.startsWith("/")) {
-    await Promise.all([
-      page.waitForNavigation(), // The promise resolves after navigation has finished
-      page.click(readDirectionsSelector) // Clicking the link will indirectly cause a navigation
-    ])
-    const iframeSelector = "iframe.recipe-source-frame"
-    await page.waitFor(iframeSelector)
-    originalUrl = await page.$eval(iframeSelector, el => el.getAttribute("src"))
-  }
-  // link directly to recipe
-  else {
-    originalUrl = readDirectionsHref
-  }
+  // // iframed original recipe
+  // if (readDirectionsHref && readDirectionsHref.startsWith("/")) {
+  //   await Promise.all([
+  //     page.waitForNavigation(), // The promise resolves after navigation has finished
+  //     page.click(readDirectionsSelector), // Clicking the link will indirectly cause a navigation
+  //   ])
+  //   const iframeSelector = "iframe.recipe-source-frame"
+  //   await page.waitFor(iframeSelector)
+  //   originalUrl = await page.$eval(iframeSelector, (el) =>
+  //     el.getAttribute("src")
+  //   )
+  // }
+  // // link directly to recipe
+  // else {
+  //   originalUrl = readDirectionsHref
+  // }
 
   return (
-    originalUrl &&
-    originalUrl.replace(
+    fullRecipeHref &&
+    fullRecipeHref.replace(
       "?utm_campaign=yummly&utm_medium=yummly&utm_source=yummly",
       ""
     )
@@ -205,14 +207,8 @@ async function getRecipeUrl(page: puppeteer.Page) {
 async function getRecipeImage(page: puppeteer.Page) {
   const recipeImageSelector = ".recipe-image"
   await page.waitForSelector(recipeImageSelector)
-  const style = await page.$eval(recipeImageSelector, el =>
-    el.getAttribute("style")
+  const src = await page.$eval(recipeImageSelector, (el) =>
+    el.getAttribute("src")
   )
-  return (
-    style &&
-    style
-      .replace('background-image: url("', "")
-      .replace('");', "")
-      .trim()
-  )
+  return src
 }
