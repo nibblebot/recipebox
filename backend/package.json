@@ -4,7 +4,7 @@
   "description": "",
   "license": "MIT",
   "dependencies": {
-    "apollo-server-express": "^2.13.1",
+    "apollo-server-express": "^2.14.2",
     "bluebird": "^3.5.2",
     "chalk": "^2.4.1",
     "express": "^4.16.4",
